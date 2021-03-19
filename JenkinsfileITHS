@@ -21,5 +21,16 @@ pipeline {
                 }
             }
         }
+        
+        stage('newman') {
+            steps {
+                sh 'newman run MT20_MARIA_SHISHKINA_Restful_Booker.postman_collection.json --environment MT20_MARIA_SHISHKINA_Restful_Booker.postman_environment.json --reporters junit'
+            }
+            post {
+                always {
+                        junit '**/*xml'
+                    }
+                }
+        }
     }
 }
